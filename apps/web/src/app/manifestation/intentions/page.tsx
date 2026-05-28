@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Target, ArrowRight, Sparkles, TrendingUp, Calendar, Heart, ArrowLeft } from "lucide-react"
+import { Target, ArrowRight, Sparkles, TrendingUp, Calendar, Heart, ArrowLeft, Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
@@ -197,7 +197,7 @@ export default function ManifestationIntentions() {
                   <div className="flex justify-between items-center mb-2">
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                       Bukti Manifestasi (Evidence Vault)
-                    </Button>
+                    </h3>
                     <span className="text-sm text-muted-foreground">
                       {evidenceCount} bukti tercatat
                     </span>

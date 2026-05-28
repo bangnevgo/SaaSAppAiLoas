@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { BookOpen, MapPin, Heart, Smile, Sad, Angry, Zap, Clock, ArrowLeft } from "lucide-react"
+import { BookOpen, MapPin, Heart, Smile, Frown, Angry, Zap, Clock, ArrowLeft, ArrowRight, Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes/dist/index.mjs"
 import { cn } from "@/lib/utils"
 
@@ -20,7 +20,7 @@ export default function NewJournalEntry() {
   const moodOptions = [
     { value: "happy", label: "Bahagia", icon: Smile },
     { value: "neutral", label: "Netral", icon: Zap },
-    { value: "sad", label: "Sedih", icon: Sad },
+    { value: "sad", label: "Sedih", icon: Frown },
     { value: "angry", label: "Marah", icon: Angry },
     { value: "excited", label: "Bersemangat", icon: Heart },
     { value: "calm", label: "Tenang", icon: Smile },
