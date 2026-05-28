@@ -150,8 +150,8 @@ export default function DashboardPage() {
                 </Link>
               </Button>
               <Button variant="outline" className="w-full" asChild>
-                <Link href="/mirror/patterns">
-                  View Patterns
+                <Link href="/mirror">
+                  View Mirror
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -176,8 +176,8 @@ export default function DashboardPage() {
                 </Link>
               </Button>
               <Button variant="outline" className="w-full" asChild>
-                <Link href="/manifestation/challenge">
-                  30-Day Challenge
+                <Link href="/manifestation">
+                  View Manifestation
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

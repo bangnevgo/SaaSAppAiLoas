@@ -84,15 +84,15 @@ Catat wawasan ini dan perhatikan bagaimana pola pola ini muncul dalam minggu dep
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
-                    <a href="/journal" className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
+                    <Link href="/journal" className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
                       Journal
-                    </a>
-                    <a href="/mirror" className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
+                    </Link>
+                    <Link href="/mirror" className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
                       Mirror
-                    </a>
-                    <a href="/manifestation" className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
+                    </Link>
+                    <Link href="/manifestation" className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
                       Teman Manifestasi
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="hidden md:block ml-4">

@@ -156,27 +156,31 @@ export default function Home() {
                 <div>
                   <h3 className="text-2xl font-semibold mb-6">Tiga Aplikasi dalam Satu</h3>
                   <div className="space-y-3">
-                    {features.map((feature, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setActiveFeature(i)}
-                        className={`w-full text-left p-4 rounded-xl transition-all border ${
-                          activeFeature === i
-                            ? "bg-muted border-border"
-                            : "hover:bg-muted/50 border-transparent"
-                        }`}
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className={`p-2 rounded-lg ${feature.bgColor}`}>
-                            <feature.icon className={`w-5 h-5 ${feature.color}`} />
+                    {features.map((feature, i) => {
+                      const href = feature.title === "Journal" ? "/journal" : feature.title === "Mirror" ? "/mirror" : "/manifestation"
+                      return (
+                        <Link
+                          key={i}
+                          href={href}
+                          onClick={() => setActiveFeature(i)}
+                          className={`block w-full text-left p-4 rounded-xl transition-all border ${
+                            activeFeature === i
+                              ? "bg-muted border-border"
+                              : "hover:bg-muted/50 border-transparent"
+                          }`}
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className={`p-2 rounded-lg ${feature.bgColor}`}>
+                              <feature.icon className={`w-5 h-5 ${feature.color}`} />
+                            </div>
+                            <div>
+                              <div className="font-medium">{feature.title}</div>
+                              <div className="text-sm text-muted-foreground">{feature.description.substring(0, 40)}...</div>
+                            </div>
                           </div>
-                          <div>
-                            <div className="font-medium">{feature.title}</div>
-                            <div className="text-sm text-muted-foreground">{feature.description.substring(0, 40)}...</div>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
+                        </Link>
+                      )
+                    })}
                   </div>
                 </div>
 
