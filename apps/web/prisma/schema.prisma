@@ -1,0 +1,276 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum ContentType {
+  JOURNAL
+  FUTURE_LETTER
+  LOVE_LETTER
+  MIRROR_ANALYSIS
+  MANIFESTATION
+}
+
+enum Visibility {
+  PRIVATE
+  PUBLIC
+  SHARED
+}
+
+enum PlanType {
+  FREE
+  JOURNAL_PRO
+  MIRROR_PREMIUM
+  MANIFESTATION_PREMIUM
+  BUNDLE
+}
+
+enum MirrorCategory {
+  SELF_WORTH
+  SAFETY
+  AUTHORITY
+  LOVE
+  BELONGING
+  IDENTITY
+  CREATIVE
+  SERVICE
+  POWER
+  UNKNOWN
+}
+
+enum ManifestationStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  PAUSED
+  ABANDONED
+}
+
+// Base User model
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  name            String?
+  avatar          String?
+  language        String    @default("id")
+  timezone        String    @default("Asia/Jakarta")
+
+  // Subscription
+  plan            PlanType  @default(FREE)
+  trialEndsAt     DateTime?
+  subscriptionId  String?   @unique
+  stripePriceId  String?
+
+  // Relations
+  contents        Content[]
+  analyses       MirrorAnalysis[]
+  manifestations Manifestation[]
+  subscriptions  Subscription[]
+  settings        UserSetting[]
+  futureLetters  FutureLetter[]
+  loveLetters    LoveLetter[]
+  shadowPatterns ShadowPattern[]
+  identityScripts IdentityScript[]
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@map("users")
+}
+
+// Base Content model - unified for all content types
+model Content {
+  id          String      @id @default(cuid())
+  type        ContentType
+  title       String
+  content     String
+  rawContent  String      // Original markdown/raw content
+  tags        String[]    // JSON array of tags
+  isArchived  Boolean     @default(false)
+  visibility  Visibility  @default(PRIVATE)
+
+  // Metadata
+  mood        String?
+  location    String?
+  weather     String?
+  aiAnalysis  String?     // JSON string for AI insights
+  aiProcessed Boolean     @default(false)
+
+  // Relations
+  authorId    String
+  author      User        @relation(fields: [authorId], references: [id])
+
+  // Journal specific
+  journalEntry JournalEntry?
+  futureLetter FutureLetter?
+  loveLetter   LoveLetter?
+
+  // Mirror specific
+  mirrorAnalysis MirrorAnalysis?
+  shadowPattern  ShadowPattern?
+  identityScript IdentityScript?
+
+  // Manifestation specific
+  manifestation  Manifestation?
+
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@map("contents")
+}
+
+// Journal Entry model (from Jurnal app)
+model JournalEntry {
+  id        String   @id @default(cuid())
+  promptId  String?
+  isPrivate Boolean  @default(true)
+
+  // Relations
+  contentId String   @unique
+  content   Content  @relation(fields: [contentId], references: [id])
+
+  @@map("journal_entries")
+}
+
+// Future Letter model (from Jurnal app)
+model FutureLetter {
+  id             String   @id @default(cuid())
+  sendDate       DateTime
+  recipientEmail String
+  isSent         Boolean  @default(false)
+  userId         String
+
+  // Relations
+  contentId String   @unique
+  content   Content  @relation(fields: [contentId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("future_letters")
+}
+
+// Love Letter model (from Jurnal app)
+model LoveLetter {
+  id             String   @id @default(cuid())
+  recipientName  String
+  recipientEmail String?
+  isPublic       Boolean  @default(false)
+  shareToken     String?  @unique
+  userId         String
+
+  // Relations
+  contentId String   @unique
+  content   Content  @relation(fields: [contentId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("love_letters")
+}
+
+// Mirror Analysis model (from Mirror Mind app)
+model MirrorAnalysis {
+  id                String        @id @default(cuid())
+  originalTrigger   String
+  hiddenBelief      String
+  conceptAudit      String
+  newIdentityScript String
+  category          MirrorCategory
+  keywords          String[]      // JSON array
+  confidence        Float         @default(0.0)
+  userId            String
+
+  // Relations
+  contentId         String   @unique
+  content           Content       @relation(fields: [contentId], references: [id])
+  user              User          @relation(fields: [userId], references: [id])
+
+  @@map("mirror_analyses")
+}
+
+// Shadow Pattern model (from Mirror Mind app)
+model ShadowPattern {
+  id          String   @id @default(cuid())
+  pattern     String
+  count       Int      @default(1)
+  category    MirrorCategory
+  lastSeen    DateTime @default(now())
+  userId      String
+
+  // Relations
+  contentId   String? @unique
+  content     Content? @relation(fields: [contentId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@map("shadow_patterns")
+}
+
+// Identity Script model (from Mirror Mind app)
+model IdentityScript {
+  id          String   @id @default(cuid())
+  script      String
+  sourceId    String   // Links to content ID
+  isRead      Boolean  @default(false)
+  isFavorite  Boolean  @default(false)
+  userId      String
+
+  // Relations
+  contentId   String? @unique
+  content     Content? @relation(fields: [contentId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@map("identity_scripts")
+}
+
+// Manifestation model (from Teman Manifestasiku app)
+model Manifestation {
+  id               String             @id @default(cuid())
+  intention        String
+  affirmation      String
+  doubtProtocol    String?
+  evidenceVault    String?            // JSON array of evidence items
+  status           ManifestationStatus
+  stage            Int                @default(1)
+  ritualNotes      String?
+  userId           String
+
+  // Relations
+  contentId        String   @unique
+  content          Content            @relation(fields: [contentId], references: [id])
+  user             User               @relation(fields: [userId], references: [id])
+
+  @@map("manifestations")
+}
+
+// User Settings model
+model UserSetting {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  key       String
+  value     String   // JSON string for complex values
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("user_settings")
+}
+
+// Subscription model
+model Subscription {
+  id              String   @id @default(cuid())
+  userId          String
+  stripeSubscriptionId String
+  status          String
+  currentPeriodStart DateTime
+  currentPeriodEnd DateTime
+
+  // Relations
+  user            User     @relation(fields: [userId], references: [id])
+
+  @@map("subscriptions")
+}

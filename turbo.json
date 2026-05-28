@@ -1,0 +1,29 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "outputs": ["prisma/migrations/**"]
+    },
+    "db:migrate": {
+      "outputs": ["prisma/migrations/**"]
+    },
+    "db:push": {
+      "outputs": ["prisma/migrations/**"]
+    },
+    "db:studio": {
+      "inputs": ["prisma/schema.prisma"]
+    }
+  }
+}

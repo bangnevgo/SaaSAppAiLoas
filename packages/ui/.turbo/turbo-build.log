@@ -1,0 +1,11 @@
+
+> @nexusreflect/ui@0.1.0 build
+> tailwindcss -i ./src/index.css -o ./dist/index.css
+
+
+Rebuilding...
+
+warn - No utility classes were detected in your source files. If this is unexpected, double-check the `content` option in your Tailwind CSS configuration.
+warn - https://tailwindcss.com/docs/content-configuration
+
+Done in 88ms.

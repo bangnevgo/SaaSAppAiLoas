@@ -1,0 +1,104 @@
+
+> @nexusreflect/web@0.1.0 dev
+> next dev -p 3000
+
+   ▲ Next.js 14.0.4
+   - Local:        http://localhost:3000
+   - Environments: .env
+
+npm error code ENOWORKSPACES
+npm error This command does not support workspaces.
+npm error A complete log of this run can be found in: /Users/ding/.npm/_logs/2026-05-24T08_39_10_891Z-debug-0.log
+ ✓ Ready in 1804ms
+ ○ Compiling /journal/new ...
+ ⨯ ./src/app/journal/new/page.tsx:6:0
+Module not found: Can't resolve '@/components/ui/textarea'
+[0m [90m 4 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[0m
+[0m [90m 5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mTextarea[39m[33m,[39m [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/textarea"[39m[0m
+[0m [90m 7 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m [90m 8 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m 9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:6:0
+Module not found: Can't resolve '@/components/ui/textarea'
+[0m [90m 4 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[0m
+[0m [90m 5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mTextarea[39m[33m,[39m [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/textarea"[39m[0m
+[0m [90m 7 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m [90m 8 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m 9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:6:0
+Module not found: Can't resolve '@/components/ui/textarea'
+[0m [90m 4 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[0m
+[0m [90m 5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mTextarea[39m[33m,[39m [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/textarea"[39m[0m
+[0m [90m 7 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m [90m 8 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m 9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:7:0
+Module not found: Can't resolve '@/components/ui/select'
+[0m [90m  5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m [90m  6 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m  8 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+[0m [90m  9 |[39m [36mimport[39m { useTheme } [36mfrom[39m [32m"next-themes/dist/index.mjs"[39m[0m
+[0m [90m 10 |[39m [36mimport[39m { cn } [36mfrom[39m [32m"@/lib/utils"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:7:0
+Module not found: Can't resolve '@/components/ui/select'
+[0m [90m  5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m [90m  6 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m  8 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m[0m
+[0m [90m  9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+[0m [90m 10 |[39m [36mimport[39m { useTheme } [36mfrom[39m [32m"next-themes/dist/index.mjs"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:7:0
+Module not found: Can't resolve '@/components/ui/select'
+[0m [90m  5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m [90m  6 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m  8 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m[0m
+[0m [90m  9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+[0m [90m 10 |[39m [36mimport[39m { useTheme } [36mfrom[39m [32m"next-themes/dist/index.mjs"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:7:0
+Module not found: Can't resolve '@/components/ui/select'
+[0m [90m  5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m [90m  6 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m  8 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m[0m
+[0m [90m  9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+[0m [90m 10 |[39m [36mimport[39m { useTheme } [36mfrom[39m [32m"next-themes/dist/index.mjs"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:7:0
+Module not found: Can't resolve '@/components/ui/select'
+[0m [90m  5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m [90m  6 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m  8 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m[0m
+[0m [90m  9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+[0m [90m 10 |[39m [36mimport[39m { useTheme } [36mfrom[39m [32m"next-themes/dist/index.mjs"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/journal/new/page.tsx:7:0
+Module not found: Can't resolve '@/components/ui/select'
+[0m [90m  5 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m[0m
+[0m [90m  6 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m"@/components/ui/input"[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mSelect[39m[33m,[39m [33mSelectContent[39m[33m,[39m [33mSelectItem[39m[33m,[39m [33mSelectTrigger[39m[33m,[39m [33mSelectValue[39m } [36mfrom[39m [32m"@/components/ui/select"[39m[0m
+[0m [90m  8 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m[0m
+[0m [90m  9 |[39m [36mimport[39m { [33mBookOpen[39m[33m,[39m [33mMapPin[39m[33m,[39m [33mHeart[39m[33m,[39m [33mSmile[39m[33m,[39m [33mSad[39m[33m,[39m [33mAngry[39m[33m,[39m [33mZap[39m[33m,[39m [33mClock[39m[33m,[39m [33mArrowLeft[39m } [36mfrom[39m [32m"lucide-react"[39m[0m
+[0m [90m 10 |[39m [36mimport[39m { useTheme } [36mfrom[39m [32m"next-themes/dist/index.mjs"[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+[?25h
