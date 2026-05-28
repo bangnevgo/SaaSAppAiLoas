@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Target, ArrowRight, Sparkles, TrendingUp, Calendar, Heart, ArrowLeft } from "lucide-react"
-import { useTheme } from "next-themes/dist/index.mjs"
+import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
 export default function ManifestationIntentions() {
