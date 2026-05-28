@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -10,6 +11,7 @@ import { useTheme } from "next-themes/dist/index.mjs"
 import { cn } from "@/lib/utils"
 
 export default function MirrorAnalyze() {
+  const router = useRouter()
   const [journalContent, setJournalContent] = useState("")
   const [analysis, setAnalysis] = useState("")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
@@ -190,6 +192,16 @@ Catat wawasan ini dan perhatikan bagaimana pola pola ini muncul dalam minggu dep
                   </Card>
                 </div>
               )}
+            </div>
+            <div className="mt-6">
+              <Button
+                type="button"
+                onClick={() => router.back()}
+                variant="outline"
+              >
+                <ArrowLeft className="mr-2 w-4 h-4" />
+                Kembali
+              </Button>
             </div>
           </div>
         </main>

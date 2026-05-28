@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,6 +11,7 @@ import { useTheme } from "next-themes/dist/index.mjs"
 import { cn } from "@/lib/utils"
 
 export default function NewJournalEntry() {
+  const router = useRouter()
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [mood, setMood] = useState("")
@@ -201,19 +203,14 @@ export default function NewJournalEntry() {
                 </div>
               </div>
 
-              <div className="mt-6 flex justify-end space-x-3">
+              <div className="mt-6 flex justify-between">
                 <Button
                   type="button"
-                  onClick={() => {
-                    setTitle("")
-                    setContent("")
-                    setMood("")
-                    setLocation("")
-                    setIsPrivate(true)
-                  }}
+                  onClick={() => router.back()}
                   variant="outline"
                 >
-                  Batal
+                  <ArrowLeft className="mr-2 w-4 h-4" />
+                  Kembali
                 </Button>
                 <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Simpan Entri

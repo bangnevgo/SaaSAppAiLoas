@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,6 +11,7 @@ import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
 export default function ManifestationIntentions() {
+  const router = useRouter()
   const [intention, setIntention] = useState("")
   const [affirmation, setAffirmation] = useState("")
   const [startDate, setStartDate] = useState("")
@@ -209,19 +211,14 @@ export default function ManifestationIntentions() {
                 </div>
               </div>
 
-              <div className="mt-6 flex justify-end space-x-3">
+              <div className="mt-6 flex justify-between">
                 <Button
                   type="button"
-                  onClick={() => {
-                    setIntention("")
-                    setAffirmation("")
-                    setStartDate("")
-                    setCategory("")
-                    setEvidenceCount(0)
-                  }}
+                  onClick={() => router.back()}
                   variant="outline"
                 >
-                  Batal
+                  <ArrowLeft className="mr-2 w-4 h-4" />
+                  Kembali
                 </Button>
                 <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Simpan Niat
