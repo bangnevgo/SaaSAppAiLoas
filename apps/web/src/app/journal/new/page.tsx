@@ -226,7 +226,7 @@ export default function NewJournalEntry() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
               <span className="flex items-center">
-                &copy; 2025 NexusReflect. All rights reserved.
+                &copy; 2026 Nevgo Reflect. All rights reserved.
               </span>
             </div>
           </div>

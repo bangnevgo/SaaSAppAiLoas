@@ -67,7 +67,7 @@ export default function SignInPage() {
           </div>
           <CardTitle className="text-2xl font-bold">Selamat Datang Kembali</CardTitle>
           <CardDescription>
-            Masuk ke akun NexusReflect kamu
+            Masuk ke akun Nevgo Reflect kamu
           </CardDescription>
         </CardHeader>
         <CardContent>

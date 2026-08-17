@@ -8,8 +8,21 @@ import { Providers } from '@/components/providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NexusReflect - Your integrated journey of self-discovery',
-  description: 'Combine journaling, self-reflection, and manifestation in one powerful platform',
+  title: 'Nevgo Reflect - Your Integrated Journey of Self-Discovery',
+  description: 'Combine journaling, self-reflection, and manifestation in one powerful platform by Nevgo Institute',
+  openGraph: {
+    title: 'Nevgo Reflect - Your Integrated Journey of Self-Discovery',
+    description: 'Combine journaling, self-reflection, and manifestation in one powerful platform by Nevgo Institute',
+    url: 'https://app.nevgoinstitute.com',
+    siteName: 'Nevgo Reflect',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nevgo Reflect - Your Integrated Journey of Self-Discovery',
+    description: 'Combine journaling, self-reflection, and manifestation in one powerful platform by Nevgo Institute',
+  },
 }
 
 export default function RootLayout({

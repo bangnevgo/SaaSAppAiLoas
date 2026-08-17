@@ -60,7 +60,7 @@ export default function Home() {
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
                 <span className="text-lg font-bold text-white">N</span>
               </div>
-              <span className="text-lg font-semibold">NexusReflect</span>
+              <span className="text-lg font-semibold">Nevgo Reflect</span>
             </div>
 
             {/* Desktop nav */}
@@ -264,7 +264,7 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Siap Memulai Perjalananmu?</h2>
-            <p className="text-muted-foreground mb-8">Bergabung dengan ribuan pengguna yang sudah merasakan manfaat dari NexusReflect.</p>
+            <p className="text-muted-foreground mb-8">Bergabung dengan ribuan pengguna yang sudah merasakan manfaat dari Nevgo Reflect.</p>
             <Button size="lg" asChild className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white h-14 px-10 text-lg">
               <Link href="/auth/signup">
                 Mulai Journey Gratis
@@ -282,10 +282,10 @@ export default function Home() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
               <span className="text-sm font-bold text-white">N</span>
             </div>
-            <span className="font-medium">NexusReflect</span>
+            <span className="font-medium">Nevgo Reflect</span>
           </div>
           <div className="text-muted-foreground text-sm">
-            &copy; 2025 NexusReflect. All rights reserved.
+            &copy; 2026 Nevgo Reflect. All rights reserved.
           </div>
         </div>
       </footer>
