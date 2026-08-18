@@ -4,7 +4,7 @@ import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { useTheme } from "next-themes/dist/index.mjs"
+import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,19 +15,19 @@ import { Check, Moon, Sun, BookOpen, CircleDot, Target, Sparkles, ArrowLeft } fr
 const plans = [
   {
     id: "free" as const,
-    name: "Free",
+    name: "Free Trial",
     price: "Rp0",
-    period: "selamanya",
-    description: "Basic access ke semua app",
-    features: ["3 journal entries/bulan", "1 AI Mirror analysis", "1 Teman Manifestasi goal", "Basic mood tracking"]
+    period: "14 hari pertama",
+    description: "Akses penuh fitur Pro selama 14 hari",
+    features: ["Akses penuh fitur AI Mirror", "Jurnal & Mood tracking tanpa batas", "Teman Manifestasi & Brankas Bukti", "Future & Love letters"]
   },
   {
     id: "bundle" as const,
     name: "Bundle Pro",
-    price: "Rp199K",
+    price: "Rp99K",
     period: "/bulan",
-    description: "Full access + 2 bulan gratis",
-    features: ["Unlimited journal entries", "Unlimited AI analysis", "Unlimited Teman Manifestasi", "Future & love letters", "Priority support", "Export data"]
+    description: "Akses penuh tanpa batas setelah masa trial",
+    features: ["Unlimited journal entries", "Unlimited AI analysis", "Unlimited Teman Manifestasi & Bukti", "Future & love letters", "Priority support", "Export data"]
   }
 ]
 
