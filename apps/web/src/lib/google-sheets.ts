@@ -5,7 +5,9 @@ export async function syncUserToGoogleSheet(data: {
   trialDays?: number
   status?: string
 }) {
-  const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL
+  const webhookUrl =
+    process.env.GOOGLE_SHEET_WEBHOOK_URL ||
+    "https://script.google.com/macros/s/AKfycbxcZSfQVgYwGije1v6WyaY1fbo0_OIFFUZsyjXPFIHGtoT1pfQbrzd7YoO8x8QUM2UeqQ/exec"
 
   if (!webhookUrl) {
     console.log("GOOGLE_SHEET_WEBHOOK_URL is not set. Skipping sheet sync.")
@@ -26,6 +28,7 @@ export async function syncUserToGoogleSheet(data: {
         trialDays: data.trialDays || 14,
         status: data.status || "TRIAL_ACTIVE",
       }),
+      redirect: "follow",
     })
 
     if (!response.ok) {
