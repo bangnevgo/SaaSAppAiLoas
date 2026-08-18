@@ -59,6 +59,7 @@ model User {
   id              String    @id @default(cuid())
   email           String    @unique
   name            String?
+  password        String?
   avatar          String?
   language        String    @default("id")
   timezone        String    @default("Asia/Jakarta")

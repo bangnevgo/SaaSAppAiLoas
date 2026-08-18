@@ -1,6 +1,7 @@
 import { NextAuthOptions } from "next-auth"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials"
+import bcrypt from "bcryptjs"
 import { prisma } from "./db"
 
 export const authOptions: NextAuthOptions = {
@@ -24,21 +25,19 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        // For MVP, we'll use a simple authentication
-        // In production, you'd want proper user lookup
+        const normalizedEmail = credentials.email.toLowerCase().trim()
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
+            email: normalizedEmail,
           }
         })
 
-        if (!user) {
+        if (!user || !user.password) {
           return null
         }
 
-        // For MVP, we only check if user exists
-        // Password validation will be added when password field is added to User model
-        if (!user) {
+        const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
+        if (!isPasswordValid) {
           return null
         }
 

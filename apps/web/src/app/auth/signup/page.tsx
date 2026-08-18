@@ -49,6 +49,25 @@ export default function SignUpPage() {
     setError("")
 
     try {
+      // 1. Register user and trigger Google Sheets sync
+      const regResponse = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          plan: formData.plan,
+        }),
+      })
+
+      const regData = await regResponse.json()
+
+      if (!regResponse.ok) {
+        throw new Error(regData.error || "Gagal membuat akun")
+      }
+
+      // 2. Automatically log in the user
       const result = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
@@ -56,16 +75,13 @@ export default function SignUpPage() {
       })
 
       if (result?.error) {
-        setError("Registrasi gagal. Silakan coba lagi.")
+        setError("Akun berhasil dibuat, silakan login manual.")
+        router.push("/auth/signin")
       } else {
-        if (formData.plan === "bundle") {
-          router.push("/billing")
-        } else {
-          router.push("/dashboard")
-        }
+        router.push("/dashboard")
       }
-    } catch {
-      setError("Terjadi kesalahan. Silakan coba lagi.")
+    } catch (err: any) {
+      setError(err.message || "Terjadi kesalahan. Silakan coba lagi.")
     } finally {
       setIsLoading(false)
     }
