@@ -151,10 +151,20 @@ export default function ManifestationPage() {
                 Kumpulkan bukti sinkronisitas, kebetulan bermakna, dan tanda bahwa asumsi Anda sedang terwujud.
               </p>
             </div>
-            <div className="mt-6">
+            <div className="mt-6 flex flex-col gap-2">
+              <Button
+                asChild
+                className="w-full bg-amber-500 text-slate-950 hover:bg-amber-400 font-medium"
+              >
+                <Link href="/manifestation/evidence">
+                  Buka Brankas Bukti
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
               <Button
                 variant="outline"
-                className="w-full border-border hover:bg-muted"
+                size="sm"
+                className="w-full border-border hover:bg-muted text-xs"
                 onClick={() => {
                   if (manifestations.length > 0) {
                     setSelectedManifestation(manifestations[0])
@@ -164,8 +174,7 @@ export default function ManifestationPage() {
                   }
                 }}
               >
-                Catat Bukti Baru
-                <Plus className="ml-2 w-4 h-4" />
+                + Catat Bukti Cepat
               </Button>
             </div>
           </div>
