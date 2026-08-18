@@ -27,17 +27,33 @@ export default function DashboardPage() {
     manifestationCount: 0,
     streak: 7,
   })
+  const [accessStatus, setAccessStatus] = useState({
+    plan: "FREE",
+    isPaid: false,
+    isTrialActive: true,
+    hasFullAccess: true,
+    daysLeft: 14,
+  })
   const [recentActivity, setRecentActivity] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function fetchDashboard() {
       try {
-        const res = await fetch("/api/dashboard")
-        if (res.ok) {
-          const data = await res.json()
+        const [dashRes, subRes] = await Promise.all([
+          fetch("/api/dashboard"),
+          fetch("/api/user/subscription"),
+        ])
+
+        if (dashRes.ok) {
+          const data = await dashRes.json()
           if (data.stats) setStatsData(data.stats)
           if (data.recentActivity) setRecentActivity(data.recentActivity)
+        }
+
+        if (subRes.ok) {
+          const subData = await subRes.json()
+          if (subData.status) setAccessStatus(subData.status)
         }
       } catch (err) {
         console.error("Gagal memuat data dashboard:", err)
@@ -91,6 +107,36 @@ export default function DashboardPage() {
             Continue your journey of self-discovery and growth.
           </p>
         </div>
+
+        {/* Trial Status Banner */}
+        {!accessStatus.isPaid && (
+          <div className="p-4 rounded-xl border border-primary/30 bg-primary/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                  {accessStatus.isTrialActive ? "Masa Trial Pro Aktif" : "Masa Trial Telah Berakhir"}
+                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/20 font-medium">
+                    {accessStatus.isTrialActive ? `${accessStatus.daysLeft} Hari Tersisa` : "Trial Habis"}
+                  </span>
+                </h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {accessStatus.isTrialActive
+                    ? "Anda memiliki akses penuh ke seluruh fitur AI Cermin Diri, Jurnal, dan Manifestasi."
+                    : "Upgrade ke Bundle Pro untuk melanjutkan akses penuh ke seluruh fitur AI tanpa batas."}
+                </p>
+              </div>
+            </div>
+            <Button size="sm" asChild className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0">
+              <Link href="/auth/signup">
+                {accessStatus.isTrialActive ? "Upgrade ke Bundle Pro" : "Aktifkan Paket Pro"}
+                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+              </Link>
+            </Button>
+          </div>
+        )}
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

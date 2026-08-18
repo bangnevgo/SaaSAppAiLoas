@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import OpenAI from "openai"
-import { sendTelegramNotification } from "@/lib/telegram"
+import { getUserAccessStatus } from "@/lib/subscription"
 
 const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY || ""
 const modelName = process.env.OPENROUTER_MODEL || "nvidia/nemotron-3.5-lightning:free"
@@ -28,6 +28,25 @@ export async function POST(request: Request) {
 
     if (!journalContent || !journalContent.trim()) {
       return NextResponse.json({ error: "Konten jurnal wajib diisi" }, { status: 400 })
+    }
+
+    // Trial / Subscription Gatekeeper Check
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { plan: true, trialEndsAt: true },
+    })
+
+    if (user) {
+      const accessStatus = getUserAccessStatus(user)
+      if (!accessStatus.hasFullAccess) {
+        return NextResponse.json(
+          {
+            error:
+              "Masa trial 14 hari Anda telah berakhir. Silakan upgrade ke Bundle Pro untuk melanjutkan analisis AI tanpa batas.",
+          },
+          { status: 403 }
+        )
+      }
     }
 
     if (!apiKey || apiKey.startsWith("your-")) {
