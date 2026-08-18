@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Moon, Sun } from "lucide-react"
+import { Moon, Sun, ArrowLeft } from "lucide-react"
 
 export default function SignInPage() {
   const [email, setEmail] = useState("")
@@ -46,6 +46,16 @@ export default function SignInPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
+      {/* Back to home button */}
+      <div className="fixed top-4 left-4">
+        <Button variant="ghost" size="sm" asChild className="gap-2 text-muted-foreground hover:text-foreground">
+          <Link href="/">
+            <ArrowLeft className="w-4 h-4" />
+            Kembali ke Beranda
+          </Link>
+        </Button>
+      </div>
+
       {/* Theme toggle */}
       <div className="fixed top-4 right-4">
         <Button

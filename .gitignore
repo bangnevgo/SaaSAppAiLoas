@@ -1,3 +1,14 @@
 node_modules/
 .next/
-.vercel
+apps/*/.next/
+.turbo/
+apps/*/.turbo/
+packages/*/.turbo/
+.vercel/
+.DS_Store
+*.log
+apps/*/*.log
+.env
+apps/*/.env
+apps/*/.env.local
+dist/

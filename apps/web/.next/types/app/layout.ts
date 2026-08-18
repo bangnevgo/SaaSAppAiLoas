@@ -1,4 +1,4 @@
-// File: /Users/ding/SaaSAppAi/unified-saas-platform/apps/web/src/app/layout.tsx
+// File: /Users/ding/Documents/Bisnis Operation/NEVGO BISNIS V4/01_BUSINESS_REALITY/Website/Nevgo_Institute _Reborn/SaaSAppAiLoas/apps/web/src/app/layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

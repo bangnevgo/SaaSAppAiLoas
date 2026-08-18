@@ -56,11 +56,14 @@ export default function Home() {
         <div className="relative container mx-auto px-4 py-6 lg:py-8">
           {/* Nav */}
           <nav className="flex items-center justify-between mb-16 lg:mb-20">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
-                <span className="text-lg font-bold text-white">N</span>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-8 h-8 font-serif text-2xl font-semibold text-primary border-r border-border pr-3">
+                N
               </div>
-              <span className="text-lg font-semibold">Nevgo Reflect</span>
+              <div className="flex flex-col leading-none tracking-wider">
+                <span className="font-semibold font-serif text-sm text-foreground">NEVGO</span>
+                <span className="text-[9px] text-muted-foreground tracking-[0.25em] font-medium mt-0.5">REFLECT</span>
+              </div>
             </div>
 
             {/* Desktop nav */}
@@ -123,24 +126,24 @@ export default function Home() {
           {/* Hero Content */}
           <div className="text-center max-w-4xl mx-auto mb-16 lg:mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border mb-8">
-              <Star className="w-4 h-4 text-amber-500" />
-              <span className="text-sm text-muted-foreground">Platform pertumbuhan diri #1 di Indonesia</span>
+              <Star className="w-3.5 h-3.5 text-primary" />
+              <span className="text-xs text-muted-foreground tracking-wide font-medium">Platform pertumbuhan diri #1 di Indonesia</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-medium mb-6 leading-[1.08] tracking-tight">
               Wujudkan Versi Terbaik
-              <span className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent"> Dirimu</span>
+              <em className="text-primary font-serif font-normal italic"> Dirimu</em>
             </h1>
-            <p className="text-lg lg:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+            <p className="text-base lg:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
               Gabungkan journaling, refleksi diri, dan manifestation dalam satu platform terintegrasi. Mulai perjalanan transformasimu hari ini.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 text-base">
+              <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 text-base font-medium">
                 <Link href="/auth/signup">
                   Mulai Gratis
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="h-12 px-8 text-base">
+              <Button size="lg" variant="outline" asChild className="h-12 px-8 text-base border-border hover:bg-muted font-medium">
                 <Link href="/auth/signin">
                   Sudah punya akun
                 </Link>
@@ -237,22 +240,21 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       {/* Stats Section */}
-      <div className="py-16 lg:py-20 bg-background">
+      <div className="py-16 lg:py-20 bg-background border-t border-border/40">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {[
-              { value: "10,000+", label: "Pengguna Aktif", icon: Heart },
-              { value: "50,000+", label: "Journal Entries", icon: BookOpen },
-              { value: "25,000+", label: "AI Analysis", icon: CircleDot },
-              { value: "95%", label: "User Satisfaction", icon: Star }
+              { value: "450+", label: "Pengguna Aktif", icon: Heart },
+              { value: "1,200+", label: "Journal Entries", icon: BookOpen },
+              { value: "850+", label: "AI Analysis", icon: CircleDot },
+              { value: "98%", label: "User Satisfaction", icon: Star }
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent mb-2">
+                <div className="text-3xl lg:text-4xl font-serif font-semibold text-primary mb-2">
                   {stat.value}
                 </div>
-                <div className="text-muted-foreground text-sm">{stat.label}</div>
+                <div className="text-muted-foreground text-sm tracking-wide">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -260,15 +262,15 @@ export default function Home() {
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 lg:py-24 bg-muted/30">
+      <div className="py-20 lg:py-24 bg-muted/30 border-t border-border/40">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Siap Memulai Perjalananmu?</h2>
-            <p className="text-muted-foreground mb-8">Bergabung dengan ribuan pengguna yang sudah merasakan manfaat dari Nevgo Reflect.</p>
-            <Button size="lg" asChild className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white h-14 px-10 text-lg">
+            <h2 className="text-3xl lg:text-4xl font-serif font-medium mb-4">Siap Memulai Perjalananmu?</h2>
+            <p className="text-muted-foreground mb-8">Bergabung dengan 450+ member yang sudah merasakan manfaat dari Nevgo Reflect.</p>
+            <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90 h-14 px-10 text-lg font-medium">
               <Link href="/auth/signup">
                 Mulai Journey Gratis
-                <Zap className="ml-2 w-5 h-5" />
+                <Zap className="ml-2 w-4 h-4" />
               </Link>
             </Button>
           </div>
@@ -278,11 +280,14 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-8 border-t border-border bg-background">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
-              <span className="text-sm font-bold text-white">N</span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-8 h-8 font-serif text-2xl font-semibold text-primary border-r border-border pr-3">
+              N
             </div>
-            <span className="font-medium">Nevgo Reflect</span>
+            <div className="flex flex-col leading-none tracking-wider text-left">
+              <span className="font-semibold font-serif text-sm text-foreground">NEVGO</span>
+              <span className="text-[9px] text-muted-foreground tracking-[0.25em] font-medium mt-0.5">REFLECT</span>
+            </div>
           </div>
           <div className="text-muted-foreground text-sm">
             &copy; 2026 Nevgo Reflect. All rights reserved.

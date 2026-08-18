@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { AppShell } from "@/app/app-shell"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -20,56 +21,61 @@ import { cn } from "@/lib/utils"
 
 export default function DashboardPage() {
   const { data: session } = useSession()
+  const [statsData, setStatsData] = useState({
+    journalCount: 0,
+    mirrorCount: 0,
+    manifestationCount: 0,
+    streak: 7,
+  })
+  const [recentActivity, setRecentActivity] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchDashboard() {
+      try {
+        const res = await fetch("/api/dashboard")
+        if (res.ok) {
+          const data = await res.json()
+          if (data.stats) setStatsData(data.stats)
+          if (data.recentActivity) setRecentActivity(data.recentActivity)
+        }
+      } catch (err) {
+        console.error("Gagal memuat data dashboard:", err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchDashboard()
+  }, [])
 
   const stats = [
     {
       title: "Journal Entries",
-      value: "24",
-      change: "+3 this week",
+      value: statsData.journalCount.toString(),
+      change: "Dari database riil",
       icon: BookOpen,
-      color: "text-blue-500",
+      color: "text-primary",
     },
     {
       title: "Mirror Insights",
-      value: "12",
-      change: "+2 this week",
+      value: statsData.mirrorCount.toString(),
+      change: "Dari database riil",
       icon: Circle,
-      color: "text-purple-500",
+      color: "text-primary",
     },
     {
       title: "Teman Manifestasi",
-      value: "8",
-      change: "+1 this week",
+      value: statsData.manifestationCount.toString(),
+      change: "Dari database riil",
       icon: Target,
-      color: "text-amber-500",
+      color: "text-primary",
     },
     {
       title: "Current Streak",
-      value: "7 days",
-      change: "Keep it up!",
+      value: `${statsData.streak} hari`,
+      change: "Pertahankan!",
       icon: TrendingUp,
-      color: "text-green-500",
-    },
-  ]
-
-  const recentActivity = [
-    {
-      type: "journal",
-      title: "Morning reflections",
-      time: "2 hours ago",
-      content: "Grateful for the peaceful morning meditation...",
-    },
-    {
-      type: "mirror",
-      title: "Work relationship analysis",
-      time: "Yesterday",
-      content: "Discovered pattern in colleague interactions...",
-    },
-    {
-      type: "manifestation",
-      title: "New intention set",
-      time: "2 days ago",
-      content: "Committed to daily manifestation practice...",
+      color: "text-primary",
     },
   ]
 
@@ -192,31 +198,39 @@ export default function DashboardPage() {
             <CardDescription>Your latest entries and insights</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-4">
-                  <div className={cn(
-                    "p-2 rounded-lg",
-                    activity.type === "journal" && "bg-blue-100 dark:bg-blue-900",
-                    activity.type === "mirror" && "bg-purple-100 dark:bg-purple-900",
-                    activity.type === "manifestation" && "bg-amber-100 dark:bg-amber-900"
-                  )}>
-                    {activity.type === "journal" && <BookOpen className="h-4 w-4 text-blue-600 dark:text-blue-300" />}
-                    {activity.type === "mirror" && <Circle className="h-4 w-4 text-purple-600 dark:text-purple-300" />}
-                    {activity.type === "manifestation" && <Target className="h-4 w-4 text-amber-600 dark:text-amber-300" />}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium">{activity.title}</h4>
-                      <span className="text-sm text-gray-500">{activity.time}</span>
+            {isLoading ? (
+              <div className="text-sm text-muted-foreground animate-pulse">Memuat aktivitas...</div>
+            ) : recentActivity.length === 0 ? (
+              <div className="text-sm text-muted-foreground py-6 text-center border border-dashed rounded-lg border-border">
+                Belum ada aktivitas terbaru. Mulailah dengan menulis jurnal atau melakukan audit cermin diri!
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {recentActivity.map((activity, index) => (
+                  <div key={index} className="flex items-start space-x-4">
+                    <div className={cn(
+                      "p-2 rounded-lg",
+                      activity.type === "journal" && "bg-primary/10 text-primary",
+                      activity.type === "mirror" && "bg-primary/10 text-primary",
+                      activity.type === "manifestation" && "bg-primary/10 text-primary"
+                    )}>
+                      {activity.type === "journal" && <BookOpen className="h-4 w-4" />}
+                      {activity.type === "mirror" && <Circle className="h-4 w-4" />}
+                      {activity.type === "manifestation" && <Target className="h-4 w-4" />}
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      {activity.content}
-                    </p>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-serif font-medium">{activity.title}</h4>
+                        <span className="text-xs text-muted-foreground">{activity.time}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                        {activity.content}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

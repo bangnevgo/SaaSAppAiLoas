@@ -2,10 +2,11 @@
 
 import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { useTheme } from "next-themes"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +25,8 @@ import {
   LogOut,
   Menu,
   X,
+  Sun,
+  Moon,
 } from "lucide-react"
 
 const navigation = [
@@ -73,6 +76,8 @@ const navigation = [
 export function MainNav() {
   const session = useSession()
   const pathname = usePathname()
+  const router = useRouter()
+  const { theme, setTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
@@ -89,39 +94,45 @@ export function MainNav() {
 
       {/* Desktop sidebar */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 md:border-r">
-        <div className="flex flex-col flex-grow pt-5 bg-white dark:bg-gray-800 overflow-y-auto">
-          <div className="flex items-center flex-shrink-0 px-4">
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Nevgo Reflect</h1>
+        <div className="flex flex-col flex-grow pt-5 bg-card overflow-y-auto">
+          <div className="flex items-center flex-shrink-0 px-5 mb-4">
+            <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              <div className="flex items-center justify-center w-8 h-8 font-serif text-2xl font-semibold text-primary border-r border-border pr-3">
+                N
+              </div>
+              <div className="flex flex-col leading-none tracking-wider">
+                <span className="font-semibold font-serif text-sm text-foreground">NEVGO</span>
+                <span className="text-[9px] text-muted-foreground tracking-[0.25em] font-medium mt-0.5">REFLECT</span>
+              </div>
+            </Link>
           </div>
           <div className="mt-5 flex-grow flex flex-col">
-            <nav className="flex-1 px-2 pb-4 space-y-1">
+            <nav className="flex-1 px-3 pb-4 space-y-1.5">
               {navigation.map((item) => (
                 <div key={item.name}>
                   <Link
                     href={item.href}
                     className={cn(
-                      item.children
-                        ? "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                        : "flex items-center px-2 py-2 text-sm font-medium rounded-md",
+                      "flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all",
                       pathname === item.href
-                        ? "bg-primary text-primary-foreground"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700"
+                        ? "bg-primary text-primary-foreground font-semibold shadow-sm"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
                   >
-                    <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
+                    <item.icon className="mr-3 h-4 w-4 flex-shrink-0" />
                     {item.name}
                   </Link>
                   {item.children && (
-                    <div className="ml-8 mt-1 space-y-1">
+                    <div className="ml-8 mt-1 space-y-1 border-l pl-2 border-border/60">
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
                           href={child.href}
                           className={cn(
-                            "block px-2 py-2 text-sm rounded-md",
+                            "block px-3 py-1.5 text-xs rounded-md transition-all",
                             pathname === child.href
-                              ? "bg-primary text-primary-foreground"
-                              : "text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+                              ? "text-primary font-semibold"
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                           )}
                         >
                           {child.name}
@@ -138,10 +149,18 @@ export function MainNav() {
 
       {/* Mobile navigation overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-800">
+        <div className="md:hidden fixed inset-0 z-40 bg-card">
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-4 border-b">
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">Nevgo Reflect</h1>
+              <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity" onClick={() => setIsMobileMenuOpen(false)}>
+                <div className="flex items-center justify-center w-8 h-8 font-serif text-2xl font-semibold text-primary border-r border-border pr-3">
+                  N
+                </div>
+                <div className="flex flex-col leading-none tracking-wider">
+                  <span className="font-semibold font-serif text-sm text-foreground">NEVGO</span>
+                  <span className="text-[9px] text-muted-foreground tracking-[0.25em] font-medium mt-0.5">REFLECT</span>
+                </div>
+              </Link>
               <Button
                 variant="ghost"
                 size="icon"
@@ -150,35 +169,33 @@ export function MainNav() {
                 <X className="h-6 w-6" />
               </Button>
             </div>
-            <nav className="flex-1 px-2 py-4 space-y-1">
+            <nav className="flex-1 px-3 py-4 space-y-1.5">
               {navigation.map((item) => (
                 <div key={item.name}>
                   <Link
                     href={item.href}
                     className={cn(
-                      item.children
-                        ? "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                        : "flex items-center px-2 py-2 text-sm font-medium rounded-md",
+                      "flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all",
                       pathname === item.href
-                        ? "bg-primary text-primary-foreground"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700"
+                        ? "bg-primary text-primary-foreground font-semibold shadow-sm"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
+                    <item.icon className="mr-3 h-4 w-4 flex-shrink-0" />
                     {item.name}
                   </Link>
                   {item.children && (
-                    <div className="ml-4 mt-1 space-y-1">
+                    <div className="ml-8 mt-1 space-y-1 border-l pl-2 border-border/60">
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
                           href={child.href}
                           className={cn(
-                            "block px-2 py-2 text-sm rounded-md",
+                            "block px-3 py-1.5 text-xs rounded-md transition-all",
                             pathname === child.href
-                              ? "bg-primary text-primary-foreground"
-                              : "text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+                              ? "text-primary font-semibold"
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                           )}
                           onClick={() => setIsMobileMenuOpen(false)}
                         >

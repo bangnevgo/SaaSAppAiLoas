@@ -1,4 +1,4 @@
-// File: /Users/ding/SaaSAppAi/unified-saas-platform/apps/web/src/app/api/auth/[...nextauth]/route.ts
+// File: /Users/ding/Documents/Bisnis Operation/NEVGO BISNIS V4/01_BUSINESS_REALITY/Website/Nevgo_Institute _Reborn/SaaSAppAiLoas/apps/web/src/app/api/auth/[...nextauth]/route.ts
 import * as entry from '../../../../../../src/app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 
