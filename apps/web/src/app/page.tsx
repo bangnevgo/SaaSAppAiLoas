@@ -19,34 +19,52 @@ export default function Home() {
     {
       icon: BookOpen,
       title: "Journal",
+      tag: "Journaling & Refleksi",
       shortDesc: "Tulis refleksi harian & lacak dinamika emosi",
       headline: "Tulis jurnal harian dengan prompts terarah",
       subheadline: "Lacak suasana hati, bangun kesadaran diri, dan simpan pesan untuk masa depan.",
       description: "Tulis jurnal harian dengan prompts yang menginspirasi. Lacak mood dan emosi kamu setiap hari.",
-      color: "text-blue-500 dark:text-blue-400",
-      bgColor: "bg-blue-500/10",
+      color: "text-sky-400",
+      bgColor: "bg-sky-500/10",
+      activeTabClass: "border-sky-500/40 bg-sky-500/10 shadow-[0_0_20px_rgba(56,189,248,0.12)]",
+      previewCardClass: "border-sky-500/30 bg-gradient-to-br from-sky-950/30 via-card to-background",
+      badgeClass: "bg-sky-500/15 text-sky-400 border border-sky-500/30",
+      dotColor: "bg-sky-400",
+      href: "/journal",
       benefits: ["Daily prompts", "Mood tracking", "Future letters", "Love letters"]
     },
     {
       icon: CircleDot,
       title: "Mirror",
+      tag: "AI Cermin Diri",
       shortDesc: "Audit konsep diri & pola pikir bawah sadar via AI",
       headline: "Kenali diri lebih dalam dengan AI Cermin Diri",
       subheadline: "Deteksi keyakinan membatasi dan buat skrip identitas baru yang memberdayakan.",
       description: "Kenali diri lebih dalam dengan AI. Analisa pola pikir dan keyakinan yang membatasi kamu.",
-      color: "text-purple-500 dark:text-purple-400",
+      color: "text-purple-400",
       bgColor: "bg-purple-500/10",
+      activeTabClass: "border-purple-500/40 bg-purple-500/10 shadow-[0_0_20px_rgba(168,85,247,0.12)]",
+      previewCardClass: "border-purple-500/30 bg-gradient-to-br from-purple-950/30 via-card to-background",
+      badgeClass: "bg-purple-500/15 text-purple-400 border border-purple-500/30",
+      dotColor: "bg-purple-400",
+      href: "/mirror",
       benefits: ["AI analysis", "Pattern recognition", "Identity scripts", "Shadow work"]
     },
     {
       icon: Target,
       title: "Teman Manifestasi",
+      tag: "Law of Assumption",
       shortDesc: "Kunci asumsi impian & catat brankas bukti 3D",
       headline: "Wujudkan impian dengan Law of Assumption",
       subheadline: "Kunci state of wish fulfilled dan kumpulkan bukti sinkronisitas harian.",
       description: "Wujudkan impian dengan pendekatan terstruktur. Bangun bukti dan lacak progress.",
-      color: "text-amber-500 dark:text-amber-400",
+      color: "text-amber-400",
       bgColor: "bg-amber-500/10",
+      activeTabClass: "border-amber-500/40 bg-amber-500/10 shadow-[0_0_20px_rgba(245,158,11,0.12)]",
+      previewCardClass: "border-amber-500/30 bg-gradient-to-br from-amber-950/30 via-card to-background",
+      badgeClass: "bg-amber-500/15 text-amber-400 border border-amber-500/30",
+      dotColor: "bg-amber-400",
+      href: "/manifestation",
       benefits: ["30-day challenges", "Evidence vault", "Affirmations", "Doubt reset"]
     }
   ]
@@ -169,49 +187,74 @@ export default function Home() {
                   <h3 className="text-2xl font-semibold mb-6">Tiga Aplikasi dalam Satu</h3>
                   <div className="space-y-3">
                     {features.map((feature, i) => {
-                      const href = feature.title === "Journal" ? "/journal" : feature.title === "Mirror" ? "/mirror" : "/manifestation"
+                      const isActive = activeFeature === i
                       return (
-                        <Link
+                        <button
                           key={i}
-                          href={href}
+                          type="button"
                           onClick={() => setActiveFeature(i)}
-                          className={`block w-full text-left p-4 rounded-xl transition-all border ${
-                            activeFeature === i
-                              ? "bg-muted border-border"
-                              : "hover:bg-muted/50 border-transparent"
+                          className={`w-full text-left p-4 rounded-xl transition-all border ${
+                            isActive
+                              ? feature.activeTabClass
+                              : "hover:bg-muted/40 border-border/60 bg-card/40"
                           }`}
                         >
-                          <div className="flex items-center gap-4">
-                            <div className={`p-2 rounded-lg ${feature.bgColor}`}>
-                              <feature.icon className={`w-5 h-5 ${feature.color}`} />
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3.5">
+                              <div className={`p-2.5 rounded-xl ${feature.bgColor} ${feature.color}`}>
+                                <feature.icon className="w-5 h-5" />
+                              </div>
+                              <div>
+                                <div className="font-semibold text-foreground flex items-center gap-2">
+                                  {feature.title}
+                                </div>
+                                <div className="text-xs text-muted-foreground mt-0.5 leading-snug">
+                                  {feature.shortDesc}
+                                </div>
+                              </div>
                             </div>
-                            <div>
-                              <div className="font-medium text-foreground">{feature.title}</div>
-                              <div className="text-xs text-muted-foreground mt-0.5 leading-snug">{feature.shortDesc}</div>
-                            </div>
+                            {/* Bubble Tag */}
+                            <span className={`text-[10px] font-medium px-2.5 py-1 rounded-full shrink-0 ${feature.badgeClass}`}>
+                              {feature.tag}
+                            </span>
                           </div>
-                        </Link>
+                        </button>
                       )
                     })}
                   </div>
                 </div>
 
                 {/* Feature Preview */}
-                <div className="rounded-xl p-6 bg-muted/50 border border-border">
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${f.bgColor} mb-4`}>
-                    <f.icon className={`w-4 h-4 ${f.color}`} />
-                    <span className={`text-sm font-medium ${f.color}`}>{f.title}</span>
+                <div className={`rounded-2xl p-6 lg:p-7 border transition-all duration-300 ${f.previewCardClass}`}>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold ${f.badgeClass}`}>
+                      <f.icon className="w-3.5 h-3.5" />
+                      <span>{f.tag}</span>
+                    </div>
+                    <span className="text-[11px] text-muted-foreground font-mono">
+                      Module {activeFeature + 1}/3
+                    </span>
                   </div>
-                  <h4 className="text-xl font-semibold mb-2 text-foreground leading-snug">{f.headline}</h4>
-                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{f.subheadline}</p>
-                  <div className="grid grid-cols-2 gap-3">
+                  <h4 className="text-xl font-serif font-semibold mb-2 text-foreground leading-snug">
+                    {f.headline}
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                    {f.subheadline}
+                  </p>
+                  <div className="grid grid-cols-2 gap-3 mb-6">
                     {f.benefits.map((benefit, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <div className={`w-1.5 h-1.5 rounded-full ${f.dotColor}`} />
                         {benefit}
                       </div>
                     ))}
                   </div>
+                  <Button asChild size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                    <Link href={f.href}>
+                      Buka Fitur {f.title}
+                      <ArrowRight className="ml-2 w-3.5 h-3.5" />
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
