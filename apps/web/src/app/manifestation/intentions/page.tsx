@@ -31,28 +31,43 @@ export default function ManifestationIntentions() {
     { value: "family", label: "Keluarga" },
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!intention.trim() || !affirmation.trim() || !startDate || !category) {
-      alert("Silakan lengkapi semua field")
+      setError("Silakan lengkapi semua isian formulir.")
       return
     }
 
-    // Here you would save to database
-    console.log("Saving manifestation intention:", {
-      intention,
-      affirmation,
-      startDate,
-      category,
-    })
-    alert("Intention berhasil disimpan! Mulai perjalanan manifestasimu.")
+    setIsLoading(true)
+    setError("")
 
-    // Reset form
-    setIntention("")
-    setAffirmation("")
-    setStartDate("")
-    setCategory("")
-    setEvidenceCount(0)
+    try {
+      const response = await fetch("/api/manifestation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          intention,
+          affirmation,
+          startDate,
+          category,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Gagal menyimpan niat manifestasi.")
+      }
+
+      router.push("/manifestation")
+    } catch (err: any) {
+      setError(err.message || "Terjadi kesalahan sistem. Silakan coba lagi.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -159,6 +174,13 @@ export default function ManifestationIntentions() {
             </div>
           </div>
 
+          {/* Error Message */}
+          {error && (
+            <div className="p-3 text-xs rounded-lg border border-destructive/30 bg-destructive/10 text-destructive">
+              {error}
+            </div>
+          )}
+
           {/* Buttons */}
           <div className="mt-8 pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -181,8 +203,12 @@ export default function ManifestationIntentions() {
                 Menu Manifestasi
               </Button>
             </div>
-            <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
-              Simpan Niat
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto"
+            >
+              {isLoading ? "Menyimpan..." : "Simpan Niat"}
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </div>
