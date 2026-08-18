@@ -3,7 +3,7 @@
  */
 export async function sendTelegramNotification(message: string) {
   const botToken = process.env.TELEGRAM_BOT_TOKEN || "8294932959:AAHhZods2iZIsuMaAGC1kkzLTB5VVA_F0kA"
-  const chatId = process.env.TELEGRAM_CHAT_ID
+  const chatId = process.env.TELEGRAM_CHAT_ID || "5729835979"
 
   if (!botToken || !chatId) {
     console.log("Telegram notification skipped: TELEGRAM_CHAT_ID is not set.")
