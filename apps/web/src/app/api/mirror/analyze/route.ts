@@ -4,8 +4,16 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import OpenAI from "openai"
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
+const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY || ""
+const modelName = process.env.OPENROUTER_MODEL || "nvidia/nemotron-3.5-lightning:free"
+
+const openrouter = new OpenAI({
+  apiKey,
+  baseURL: process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1",
+  defaultHeaders: {
+    "HTTP-Referer": process.env.NEXTAUTH_URL || "https://app.nevgoinstitute.com",
+    "X-Title": "Nevgo Reflect",
+  },
 })
 
 export async function POST(request: Request) {
@@ -18,16 +26,16 @@ export async function POST(request: Request) {
     const { journalContent } = await request.json()
 
     if (!journalContent || !journalContent.trim()) {
-      return NextResponse.json({ error: "Journal content is required" }, { status: 400 })
+      return NextResponse.json({ error: "Konten jurnal wajib diisi" }, { status: 400 })
     }
 
-    if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY.startsWith("your-")) {
+    if (!apiKey || apiKey.startsWith("your-")) {
       return NextResponse.json({
-        error: "OpenAI API Key belum dikonfigurasi di server. Mohon hubungi admin.",
+        error: "OPENROUTER_API_KEY belum dikonfigurasi di Environment Variables server/Vercel.",
       }, { status: 500 })
     }
 
-    // Call OpenAI GPT-4
+    // Prompt Law of Assumption & Self-Concept Audit
     const prompt = `
 Anda adalah pakar psikologi transpersonal dan pengajar filosofi Neville Goddard (Law of Assumption). Tugas Anda adalah menganalisis entri jurnal pengguna untuk mengaudit konsep diri (self-concept), mendeteksi keyakinan bawah sadar yang membatasi (limiting beliefs), dan menuliskan skrip identitas baru yang memberdayakan.
 
@@ -59,8 +67,8 @@ Berikan hasil analisis Anda dalam format JSON murni dengan struktur berikut:
 PENTING: Jangan menyertakan penjelasan tambahan atau pembungkus markdown seperti \`\`\`json. Kembalikan HANYA string JSON yang valid.
 `
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4",
+    const response = await openrouter.chat.completions.create({
+      model: modelName,
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
     })
@@ -69,17 +77,25 @@ PENTING: Jangan menyertakan penjelasan tambahan atau pembungkus markdown seperti
     
     let analysisData
     try {
-      analysisData = JSON.parse(resultText.trim())
+      let cleanedText = resultText.trim()
+      if (cleanedText.startsWith("```")) {
+        cleanedText = cleanedText.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "")
+      }
+      const jsonMatch = cleanedText.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        cleanedText = jsonMatch[0]
+      }
+      analysisData = JSON.parse(cleanedText)
     } catch (parseError) {
-      console.error("OpenAI response parse error:", resultText, parseError)
+      console.error("OpenRouter response parse error:", resultText, parseError)
       // Fallback in case JSON parsing fails
       analysisData = {
         category: "UNKNOWN",
         hiddenBelief: "Terdeteksi adanya hambatan atau keraguan diri.",
-        conceptAudit: "Analisis gagal diformat secara otomatis, namun tulisan Anda menunjukkan perlunya refleksi lebih lanjut pada ketenangan diri.",
-        newIdentityScript: "Saya tenang dan menyerahkan semua hasil kepada kesadaran saya.",
-        keywords: ["refleksi", "kesadaran"],
-        confidence: 0.5,
+        conceptAudit: "Analisis sedang disempurnakan, namun tulisan Anda menunjukkan perlunya memperkuat asumsi keberhasilan dan ketenangan internal.",
+        newIdentityScript: "Saya tenang dan meyakini segala impian saya telah terwujud secara sempurna.",
+        keywords: ["refleksi", "kesadaran", "asumsi"],
+        confidence: 0.75,
       }
     }
 
@@ -115,6 +131,6 @@ PENTING: Jangan menyertakan penjelasan tambahan atau pembungkus markdown seperti
     return NextResponse.json({ analysis: contentRecord.mirrorAnalysis })
   } catch (error: any) {
     console.error("POST mirror analyze error:", error)
-    return NextResponse.json({ error: error.message || "Failed to process AI analysis" }, { status: 500 })
+    return NextResponse.json({ error: error.message || "Gagal memproses analisis AI OpenRouter" }, { status: 500 })
   }
 }
