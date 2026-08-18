@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import OpenAI from "openai"
+import { sendTelegramNotification } from "@/lib/telegram"
 
 const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY || ""
 const modelName = process.env.OPENROUTER_MODEL || "nvidia/nemotron-3.5-lightning:free"
@@ -127,6 +128,16 @@ PENTING: Jangan menyertakan penjelasan tambahan atau pembungkus markdown seperti
         mirrorAnalysis: true,
       },
     })
+
+    // Send Telegram alert (non-blocking)
+    sendTelegramNotification(
+      `🔍 *AI Mirror Audit Selesai!*\n\n` +
+      `👤 *User*: ${session.user.name || session.user.email}\n` +
+      `📌 *Kategori*: ${analysisData.category}\n` +
+      `💡 *Hidden Belief*: "${analysisData.hiddenBelief}"\n` +
+      `✨ *New Identity*: "${analysisData.newIdentityScript}"\n` +
+      `⏰ *Waktu*: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}`
+    ).catch((err) => console.error("Mirror telegram alert error:", err))
 
     return NextResponse.json({ analysis: contentRecord.mirrorAnalysis })
   } catch (error: any) {

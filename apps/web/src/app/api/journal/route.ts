@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
+import { sendTelegramNotification } from "@/lib/telegram"
 
 export async function GET() {
   try {
@@ -65,6 +66,15 @@ export async function POST(request: Request) {
         journalEntry: true,
       },
     })
+
+    // Send Telegram Notification (non-blocking)
+    sendTelegramNotification(
+      `📖 *Entri Jurnal Baru Ditulis!*\n\n` +
+      `👤 *User*: ${session.user.name || session.user.email}\n` +
+      `📝 *Judul*: ${title}\n` +
+      (mood ? `🎭 *Mood*: ${mood}\n` : "") +
+      `⏰ *Waktu*: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}`
+    ).catch((err) => console.error("Journal telegram alert error:", err))
 
     return NextResponse.json({ entry: newContent })
   } catch (error: any) {
