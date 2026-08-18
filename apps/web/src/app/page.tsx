@@ -19,6 +19,9 @@ export default function Home() {
     {
       icon: BookOpen,
       title: "Journal",
+      shortDesc: "Tulis refleksi harian & lacak dinamika emosi",
+      headline: "Tulis jurnal harian dengan prompts terarah",
+      subheadline: "Lacak suasana hati, bangun kesadaran diri, dan simpan pesan untuk masa depan.",
       description: "Tulis jurnal harian dengan prompts yang menginspirasi. Lacak mood dan emosi kamu setiap hari.",
       color: "text-blue-500 dark:text-blue-400",
       bgColor: "bg-blue-500/10",
@@ -27,6 +30,9 @@ export default function Home() {
     {
       icon: CircleDot,
       title: "Mirror",
+      shortDesc: "Audit konsep diri & pola pikir bawah sadar via AI",
+      headline: "Kenali diri lebih dalam dengan AI Cermin Diri",
+      subheadline: "Deteksi keyakinan membatasi dan buat skrip identitas baru yang memberdayakan.",
       description: "Kenali diri lebih dalam dengan AI. Analisa pola pikir dan keyakinan yang membatasi kamu.",
       color: "text-purple-500 dark:text-purple-400",
       bgColor: "bg-purple-500/10",
@@ -35,6 +41,9 @@ export default function Home() {
     {
       icon: Target,
       title: "Teman Manifestasi",
+      shortDesc: "Kunci asumsi impian & catat brankas bukti 3D",
+      headline: "Wujudkan impian dengan Law of Assumption",
+      subheadline: "Kunci state of wish fulfilled dan kumpulkan bukti sinkronisitas harian.",
       description: "Wujudkan impian dengan pendekatan terstruktur. Bangun bukti dan lacak progress.",
       color: "text-amber-500 dark:text-amber-400",
       bgColor: "bg-amber-500/10",
@@ -177,8 +186,8 @@ export default function Home() {
                               <feature.icon className={`w-5 h-5 ${feature.color}`} />
                             </div>
                             <div>
-                              <div className="font-medium">{feature.title}</div>
-                              <div className="text-sm text-muted-foreground">{feature.description.substring(0, 40)}...</div>
+                              <div className="font-medium text-foreground">{feature.title}</div>
+                              <div className="text-xs text-muted-foreground mt-0.5 leading-snug">{feature.shortDesc}</div>
                             </div>
                           </div>
                         </Link>
@@ -193,8 +202,8 @@ export default function Home() {
                     <f.icon className={`w-4 h-4 ${f.color}`} />
                     <span className={`text-sm font-medium ${f.color}`}>{f.title}</span>
                   </div>
-                  <h4 className="text-xl font-semibold mb-3">{f.description.split('.')[0]}</h4>
-                  <p className="text-muted-foreground mb-6">{f.description.split('.')[1]?.trim()}</p>
+                  <h4 className="text-xl font-semibold mb-2 text-foreground leading-snug">{f.headline}</h4>
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{f.subheadline}</p>
                   <div className="grid grid-cols-2 gap-3">
                     {f.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
