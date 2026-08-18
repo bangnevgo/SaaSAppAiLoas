@@ -129,16 +129,6 @@ PENTING: Jangan menyertakan penjelasan tambahan atau pembungkus markdown seperti
       },
     })
 
-    // Send Telegram alert (non-blocking)
-    sendTelegramNotification(
-      `🔍 *AI Mirror Audit Selesai!*\n\n` +
-      `👤 *User*: ${session.user.name || session.user.email}\n` +
-      `📌 *Kategori*: ${analysisData.category}\n` +
-      `💡 *Hidden Belief*: "${analysisData.hiddenBelief}"\n` +
-      `✨ *New Identity*: "${analysisData.newIdentityScript}"\n` +
-      `⏰ *Waktu*: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}`
-    ).catch((err) => console.error("Mirror telegram alert error:", err))
-
     return NextResponse.json({ analysis: contentRecord.mirrorAnalysis })
   } catch (error: any) {
     console.error("POST mirror analyze error:", error)

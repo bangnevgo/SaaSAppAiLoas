@@ -67,15 +67,6 @@ export async function POST(request: Request) {
       },
     })
 
-    // Send Telegram Notification (non-blocking)
-    sendTelegramNotification(
-      `📖 *Entri Jurnal Baru Ditulis!*\n\n` +
-      `👤 *User*: ${session.user.name || session.user.email}\n` +
-      `📝 *Judul*: ${title}\n` +
-      (mood ? `🎭 *Mood*: ${mood}\n` : "") +
-      `⏰ *Waktu*: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}`
-    ).catch((err) => console.error("Journal telegram alert error:", err))
-
     return NextResponse.json({ entry: newContent })
   } catch (error: any) {
     console.error("POST journal entry error:", error)

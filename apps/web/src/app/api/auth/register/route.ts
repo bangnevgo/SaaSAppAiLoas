@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
 import { syncUserToGoogleSheet } from "@/lib/google-sheets"
-import { sendTelegramNotification } from "@/lib/telegram"
+import { notifyNewRegistration } from "@/lib/telegram"
 
 export async function POST(request: Request) {
   try {
@@ -64,14 +64,12 @@ export async function POST(request: Request) {
       status: "TRIAL_ACTIVE",
     }).catch((err) => console.error("Background sheet sync error:", err))
 
-    sendTelegramNotification(
-      `🎉 *Pendaftaran Member Baru!*\n\n` +
-      `👤 *Nama*: ${newUser.name}\n` +
-      `📧 *Email*: ${newUser.email}\n` +
-      `📦 *Paket*: ${newUser.plan}\n` +
-      `⏳ *Masa Trial*: 14 Hari\n` +
-      `⏰ *Waktu*: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}`
-    ).catch((err) => console.error("Background telegram alert error:", err))
+    notifyNewRegistration({
+      name: newUser.name || "Member Nevgo",
+      email: newUser.email,
+      plan: newUser.plan,
+      trialDays: 14,
+    }).catch((err: any) => console.error("Background telegram alert error:", err))
 
     return NextResponse.json(
       {
